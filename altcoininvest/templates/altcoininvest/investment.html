@@ -1,0 +1,246 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- inner header wrapper start -->
+<div class="page_title_section">
+    <div class="page_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-12 col-sm-8">
+                    <h1>Investment plan </h1>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 col-sm-4">
+                    <div class="sub_title_section">
+                        <ul class="sub_title">
+                            <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                            <li>Investment </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- inner header wrapper end -->
+<!--investment plan wrapper start -->
+<div class="sv_pricing_paln fixed_portion  float_left">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                <div class="sv_heading_wraper heading_wrapper_dark dark_heading">
+                    <h4> our plans </h4>
+                    <h3> Our Investment Plans </h3>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6 col-12">
+                <div class="investment_box_wrapper sv_pricing_border float_left">
+                    <div class="investment_icon_circle">
+                        <i class="flaticon-bar-chart"></i>
+                    </div>
+                    <div class="investment_border_wrapper"></div>
+                    <div class="investment_content_wrapper">
+                        <h1><a href="{% url 'blog_single' 1 %}">Basic Plan</a></h1>
+                        <p>Up to 5% for 1 day
+                            <br> Min deposit: $100
+                            <br> Max deposit: $4,999
+                            <br> Principal Return
+                            <br> Up to 15% in 3 days
+                        </p>
+                    </div>
+                    <div class="about_btn plans_btn">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog_single' 1 %}">read more</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6 col-12">
+                <div class="investment_box_wrapper sv_pricing_border float_left">
+                    <div class="investment_icon_circle red_info_circle">
+                        <i class="flaticon-money"></i>
+                    </div>
+                    <div class="investment_border_wrapper red_border_wrapper"></div>
+                    <div class="investment_content_wrapper red_content_wrapper">
+                        <h1><a href="{% url 'blog_single' 2 %}">Business Plan</a></h1>
+                        <p>Up to 6% Daily for 1 day
+                            <br> Min deposit: $5,000
+                            <br> Max deposit: $9,999
+                            <br> Principal Return
+                            <br> Up to 36% in 6 days</p>
+                    </div>
+                    <div class="about_btn plans_btn red_btn_plans">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog_single' 2 %}">read more</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6 col-12">
+                <div class="investment_box_wrapper sv_pricing_border float_left">
+                    <div class="investment_icon_circle blue_icon_circle">
+                        <i class="flaticon-gold"></i>
+                    </div>
+                    <div class="investment_border_wrapper blue_border_wrapper"></div>
+                    <div class="investment_content_wrapper blue_content_wrapper">
+                        <h1><a href="{% url 'blog_single' 3 %}">Index Plan</a></h1>
+                        <p>Up to 8% for 1 day
+                            <br> Min deposit: $10,000
+                            <br> Max deposit: $49,999
+                            <br> Principal Return
+                            <br> Up to 64% in 8 days</p>
+                    </div>
+                    <div class="about_btn plans_btn blue_btn_plans">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog_single' 3 %}">read more</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-lg-6 col-sm-6 col-12">
+                <div class="investment_box_wrapper sv_pricing_border float_left">
+                    <div class="investment_icon_circle green_info_circle">
+                        <i class="flaticon-medal"></i>
+                    </div>
+                    <div class="investment_border_wrapper green_border_wrapper"></div>
+                    <div class="investment_content_wrapper green_content_wrapper">
+                        <h1><a href="{% url 'blog_single' 4 %}">Dynamic Plan</a></h1>
+                        <p>Up to 15% for 1 days
+                            <br> Min deposit: $50,000
+                            <br> Max deposit: No limit
+                            <br> Daily withdrawal
+                    </div>
+                    <div class="about_btn plans_btn green_plan_btn">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog_single' 4 %}">read more</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--investment plan wrapper end -->
+<!-- transaction wrapper start -->
+<div class="transaction_wrapper float_left">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="sv_heading_wraper half_section_headign half_sec_heading">
+                    <h4>who we are</h4>
+                    <h3>Our Latest Transaction</h3>
+                </div>
+                <div class="x_offer_tabs_wrapper">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home"> deposits</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#menu2">withdraw</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="table_next_race league_table overflow-scroll">
+                                    <table>
+                                        <tr>
+                                            <th class="form_table_resp">name</th>
+                                            <th>date</th>
+                                            <th>amount</th>
+                                            <th>currency</th>
+                                            <th>deposit</th>
+                                        </tr>
+                                      {% if deposits %}
+                                        {% for deposit in deposits %}
+                                        <tr>
+                                            <td>{{ deposit.user.first_name }} {{ deposit.user.last_name }} </td>
+                                            <td>{{ deposit.date}}</td>
+                                            <td>${{ deposit.amount }}</td>
+                                            <td>{{ deposit.currency }}</td>
+                                            <td>{{ deposit.payment_mode }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="table_next_race league_table overflow-scroll">
+                                    <table>
+                                        <tr>
+                                            <th class="form_table_resp">name</th>
+                                            <th>date</th>
+                                            <th>amount</th>
+                                            <th>currency</th>
+                                            <th>deposit</th>
+                                        </tr>
+                                    {% if withdraws %}
+                                      {% for withdraw in withdraws %}
+                                        <tr>
+                                            <td>{{ withdraw.user.first_name }} {{ withdraw.user.last_name }}</td>
+                                            <td>{{ withdraw.date }}</td>
+                                            <td>${{ withdraw.amount }}</td>
+                                            <td>Dollar</td>
+                                            <td>{{ withdraw.payment_mode }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      {% endif %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- transaction wrapper end -->
+<!--calculator plan wrapper start -->
+<div class="global_community_wrapper float_left">
+    <div class="container">
+        <div class="row">
+            <div class="global_comm_wraper">
+                <h1>We Were Always Thinking Global Community</h1>
+                <p> Our vision is to create a better everyday life for many people.
+                  Create a strong community of investors, to help you build a wealth of passive
+                  income from the currently evolving world of cryptocurrency and forex markets.
+                </p>
+            </div>
+            <div class="zero_balance_wrapper">
+                <div class="zero_commisition">
+                    <h1>Zero Commissions</h1>
+                    <h4>No hidden charges*</h4>
+                </div>
+                <div class="start_invest_wrap">
+                    <h1>start invest now</h1>
+                    <div class="about_btn float_left">
+                        <ul>
+                            <li>
+                                <a href="{% url 'make_deposit' %}">buy now !</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--calculator plan wrapper end -->
+{% endblock %}

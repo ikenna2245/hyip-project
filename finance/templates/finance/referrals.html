@@ -1,0 +1,99 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Referral </h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li> Referral</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+{% endblock %}
+{% block content %}
+            <!-- referrals wrapper start -->
+            <div class="view_profile_wrapper_top float_left">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                        <div class="sv_heading_wraper">
+                            <h3>REFERRAL HISTORY</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-12">
+                        <div class="view_profile_wrapper float_left">
+                            <ul class="profile_list referal_list">
+                                <li><span class="detail_left_part">Active Referrals </span> <span class="detail_right_part">{{ referral_count }}</span>
+                                </li>
+                                <li><span class="detail_left_part">Total Referral Deposited Amount</span> <span class="detail_right_part">${{ referral_deposit }} USD</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- referrals wrapper end -->
+            <!--  transactions wrapper start -->
+            <div class="last_transaction_wrapper float_left">
+                <div class="row">
+                    <div class="crm_customer_table_main_wrapper float_left">
+                        <div class="crm_ct_search_wrapper">
+                            <div class="crm_ct_search_bottom_cont_Wrapper">
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="myTable table datatables cs-table crm_customer_table_inner_Wrapper">
+                                <thead>
+                                    <tr>
+                                        <th class="width_table1">#ID</th>
+                                        <th class="width_table1">username</th>
+                                        <th class="width_table1">first name</th>
+                                        <th class="width_table1">E-mail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {% for ref in referral %}
+                                    <tr class="background_white">
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref.user.id }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref.user.username }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref.user.first_name }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref.user.email }}</div>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  transactions wrapper end -->
+{% endblock %}

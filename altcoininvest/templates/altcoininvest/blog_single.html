@@ -1,0 +1,214 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section">
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-lg-9 col-md-9 col-12 col-sm-8">
+                        <h1>{{ blog.title }}</h1>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-3 col-md-3 col-12 col-sm-4">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li>{{  blog.title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+    <!-- blog category wrapper start-->
+    <div class="blog_category_wrapper fixed_portion float_left">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="blog_category_box_wrapper blog_box_wrapper float_left">
+                        <div class="blog_news_img_wrapper float_left">
+                            <img src="{{ blog.image.url }}" alt="blog_img">
+                            <div class="blog_date_wrapper">
+                                <p>{{blog.date | date:"M d" }}</p>
+                            </div>
+                        </div>
+                        <div class="lest_news_cont_wrapper float_left">
+                            <div class="blog_heaidng_top">
+                                <h3>  {{ blog.title }} </h3>
+                            </div>
+                            <div class="blog-single_cntnt">
+                              <br>
+                                <h4> About our {{ blog.title }} </h4>
+                                <br>
+                                <p>
+                                  {{ blog.about }}
+                                    <br>
+                                    <br>
+                                </p>
+                                <h4>Return on Investment (ROI) </h4>
+                                <br>
+                                <p>
+                                  {{ blog.roi }}
+                                    <br>
+                                    <br>
+                                    <a href="{% url 'investment' %}"> Other Investment Plans</a>
+                                    <br>
+                                    <br>
+                                </p>
+                                <h4>Cashing out </h4>
+                                <br>
+                                <p>
+                                  {{ blog.cash }}
+                                    <br>
+                                    <br>
+                                    <a href="{% url 'payment_request' %}"> Request payment</a>
+                                    <br>
+                                    <br>
+                                </p>
+                                <h4>Making Deposit</h4>
+                                <br>
+                                <p>
+                                  {{ blog.deposit }}
+                                    <br>
+                                    <br>
+                                  <a href="{% url 'make_deposit' %}">Make Deposit</a>
+                                  <br>
+                                  <br>
+                                </p>
+                            </div>
+                            <div class="lest_news_cont_bottom float_left">
+                                <ul>
+                                    <li>
+                                        <a><i class="fa fa-user"></i>by @techcoininvest</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments_wrapper float_left">
+                        <div class="widget_heading">
+                            <h2>comments</h2>
+                        </div>
+                        <div class="row">
+                          {% if comments %}
+                          {% for comment in comments %}
+                            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                                <div class="comments_Box">
+                                    <div class="text_wrapper">
+                                        <div class="author_detail">
+                                            <span class="author_name"> {{ comment.name }} <i class="fa fa-circle"></i> </span>
+                                            <span class="publish_date"> {{ comment.date | date:"M d, Y" }} </span>
+                                        </div>
+                                        <div class="author_content">
+                                            <p>{{ comment.comment }} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                                <div class="comments_Box">
+                                    <div class="text_wrapper">
+                                        <div class="author_content">
+                                            <p>No comment </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                  <form method="post">
+                    {% csrf_token %}
+                    <div class="comments_form float_left">
+                        <div class="widget_heading">
+                            <h2>leave a comment</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="formsix-pos">
+                                    <div class="form-group i-name">
+                                        <label class="sr-only">Name</label>
+                                        <input type="text" class="form-control" required name="name" placeholder="Full Name *">
+                                        <input type="hidden" name="category" value="{{ blog.title }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-md-6 col-sm-12">
+                                <div class="formsix-e">
+                                    <div class="form-group i-email">
+                                        <label class="sr-only">Email</label>
+                                        <input type="email" class="form-control" required name="email" placeholder="Email Address *">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-md-12 col-sm-12">
+                                <div class="formsix-m">
+                                    <div class="form-group i-message">
+                                        <label class="sr-only">Message</label>
+                                        <textarea class="form-control" required rows="4" name="message" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col-md-12 -->
+                        </div>
+                        <!-- /.row-->
+                        <div class="about_btn float_left">
+                            <ul>
+                                <li>
+                                    <button type="submit" name="button" class="btn btn-outline"> send now </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <div class="sidebar_widget">
+                        <h4>blog category</h4>
+                        <div class="archives_wrapper">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'blog' %}">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> Investments
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar_widget">
+                        <div class="wrapper_second_blog wrapper_second_blog_2">
+                            <h4>recent post</h4>
+                          {% for blog in blogs %}
+                            <div class="blog_wrapper1">
+                                <div class="blog_image">
+                                    <img src="{{ blog.image.url }}" class="img-responsive" alt="{{ blog.title }}" />
+                                </div>
+                                <div class="sv_blog_text">
+                                    <h5><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h5>
+                                    <div class="blog_date blog_date_blog"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{ blog.date | date:"M d, Y"  }}</div>
+                                </div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--blog category wrapper end-->
+  {% endblock %}

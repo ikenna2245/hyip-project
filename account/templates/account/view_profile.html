@@ -1,0 +1,61 @@
+{% extends 'altcoininvest/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block navi %}
+<!-- inner header wrapper start -->
+<div class="page_title_section dashboard_title">
+    <div class="page_header">
+        <div class="container">
+            <div class="row">
+              {% if messages %}
+                  {% for message in messages %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+              {% else %}
+                <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                    <h1>View Profile</h1>
+                </div>
+              {% endif %}
+                <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                    <div class="sub_title_section">
+                        <ul class="sub_title">
+                            <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                            <li>View Profile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- inner header wrapper end -->
+{% endblock %}
+{% block content %}
+<!--  profile wrapper start -->
+ <div class="view_profile_wrapper_top float_left">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+            <div class="sv_heading_wraper">
+                <h3>profile</h3>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+            <div class="view_profile_wrapper float_left">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                  <legend class="border-bottom mb-4"> Profile Info!</legend>
+                  {{ p_form| crispy }}
+                </fieldset>
+                <div class="form-group">
+                  <button class="btn btn-outline-info" type="submit" name="button">Update</button>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+  </div>
+<!--  profile wrapper end -->
+{% endblock %}

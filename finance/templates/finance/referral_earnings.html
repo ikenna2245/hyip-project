@@ -1,0 +1,92 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Referral Earnings</h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li>Referral Earnings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+  {% endblock %}
+	{% block content %}
+            <!--  profile wrapper start -->
+             <div class="last_transaction_wrapper float_left">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                        <div class="sv_heading_wraper">
+                            <h3>Referral Earnings history</h3>
+                        </div>
+                    </div>
+                    <div class="crm_customer_table_main_wrapper float_left">
+                        <div class="crm_ct_search_wrapper">
+                            <div class="crm_ct_search_bottom_cont_Wrapper">
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="myTable table datatables cs-table crm_customer_table_inner_Wrapper">
+                                <thead>
+                                    <tr>
+                                        <th class="width_table1">transaction ID</th>
+                                        <th class="width_table1">amount ($)</th>
+                                        <th class="width_table1">description</th>
+                                        <th class="width_table1">payment mode</th>
+                                        <th class="width_table1">date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {% for ref_earning in ref_earnings %}
+                                    <tr class="background_white">
+                                        <td>
+                                            <div class="media cs-media">
+                                                <div class="media-body">
+                                                    <h5>{{ ref_earning.transaction_id }}</h5>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref_earning.amount }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">Referral Commission</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ref_earning.payment_mode }}</div>
+                                        </td>
+
+                                        <td class="flag">
+                                            <div class="pretty p-svg p-curve">{{ ref_earning.date }}</div>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  profile wrapper end -->
+{% endblock %}

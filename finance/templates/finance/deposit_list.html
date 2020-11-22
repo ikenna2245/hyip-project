@@ -1,0 +1,150 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Deposit Lists </h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li> Deposit Lists</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+{% endblock %}
+{% block content %}
+<!--  deposit wrapper start -->
+  <div class="deposit_list_wrapper float_left">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+            <div class="sv_heading_wraper">
+                <h3>deposit lists</h3>
+            </div>
+        </div>
+    </div>
+    <div class="crm_customer_table_main_wrapper deposit_tables float_left">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                <div class="deposit_tab_wrapper">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home"> active deposit</a></li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#menu1">matured deposit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="table-responsive">
+                                    <table class="myTable table datatables cs-table crm_customer_table_inner_Wrapper">
+                                        <thead>
+                                            <tr>
+                                                <th class="width_table1">plan name</th>
+                                                <th class="width_table1">deposit amount</th>
+                                                <th class="width_table1">status</th>
+                                                <th class="width_table1">investment date</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                      {% if active_deposits %}
+                                        {% for item in active_deposits %}
+                                            <tr class="background_white">
+                                                <td>
+                                                    <div class="media cs-media">
+                                                        <div class="media-body">
+                                                            <h5>{{ item.plan }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="pretty p-svg p-curve">${{ item.amount }}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="pretty p-svg p-curve deposit_active">active</div>
+                                                </td>
+                                                <td>
+                                                    <div class="pretty p-svg p-curve">{{ item.date }}</div>
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                      {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="menu1" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-12">
+                                            <div class="table-responsive">
+                                                <table class="myTable table datatables cs-table crm_customer_table_inner_Wrapper">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="width_table1">plan name</th>
+                                                            <th class="width_table1">deposit amount</th>
+                                                            <th class="width_table1">status</th>
+                                                            <th class="width_table1">investment date</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                  {% if matured_deposits %}
+                                                      {% for item in matured_deposits %}
+                                                        <tr class="background_white">
+                                                            <td>
+                                                                <div class="media cs-media">
+                                                                    <div class="media-body">
+                                                                        <h5>{{ item.plan }}</h5>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="pretty p-svg p-curve">${{ item.amount }}</div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="pretty p-svg p-curve deposit_matured">matured</div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="pretty p-svg p-curve">{{ item.date }}</div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                  {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  deposit wrapper end -->
+{% endblock %}

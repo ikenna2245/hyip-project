@@ -1,0 +1,103 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Make Payout </h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li>Make Payout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+  {% endblock %}
+	{% block content %}
+            <!--  profile wrapper start -->
+<div class="payment_transfer_Wrapper float_left">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+            <div class="sv_heading_wraper heading_center">
+                <h3>Make Payout</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+				 <div class="col-md-12 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-sm-12 col-12">
+           <form method="post">
+            {% csrf_token %}
+						<div class="change_password_wrapper float_left">
+							<div class="change_pass_field float_left">
+							<div class="payment_gateway_wrapper payment_select_wrapper">
+							         <label>Select Payment Mode :</label>
+                          <select name="payment_gateway" required>
+                              <option value="PayPal">paypal</option>
+                              <option value="Bitcoin">bitcoin</option>
+                              <option value="Ethereum">Ethereum</option>
+                          </select>
+                </div>
+                <div class="payment_gateway_wrapper payment_select_wrapper">
+  							         <label>Investment or Referral:</label>
+                            <select name="type" required>
+                                <option value="investment">Matured Investment</option>
+                                <option value="referral">Referral Bonus</option>
+                            </select>
+                  </div>
+                <div class="payment_gateway_wrapper payment_select_wrapper">
+  							         <label>Select Balance:</label>
+                            <select name="deposit" required>
+                            {% for deposit in deposits %}
+                              {% if deposit.total_earning > 0.0 %}
+                                <option value="{{ deposit.id }}"> Matured Investment: {{ deposit.total_earning }} </option>
+                              {% endif %}
+                            {% endfor %}
+                            {% if referrals %}
+                            {% for referral in referrals %}
+                              {% if referral.referral_interest > 0.0 %}
+                                {% if referral.status or referral.matured %}
+                                  <option value="{{ referral.id }}"> Referral Bonus: {{ referral.referral_interest }} </option>
+                                {% endif %}
+                              {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            </select>
+                  </div>
+                  <div class="change_field">
+                    <label>Amount: </label>
+										<input type="number" name="amount" placeholder="000 USD" required>
+                </div>
+                <div class="change_field">
+									<label>Account ID :</label>
+									<input type="text" name="account_id" placeholder="user@mail.com or Wallet address" required>
+                </div>
+                <div class="tb_es_btn_wrapper conatct_btn2 cont_bnt">
+                    <button type="submit" class="submitForm"> Request Payment </button>
+                </div>
+							</div>
+						</div>
+          </form>
+			 </div>
+	  </div>
+</div>
+            <!--  profile wrapper end -->
+{% endblock %}

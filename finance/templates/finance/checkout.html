@@ -1,0 +1,128 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Checkout</h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li> Checkout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+  {% endblock %}
+
+{% block content %}
+<div class="plan_investment_wrapper float_left">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+      <div class="sv_heading_wraper">
+        <h3>Checkout</h3>
+      </div>
+    </div>
+    <div class="payment_mode_wrapper float_left">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                <div class="sv_heading_wraper">
+                  <div class="card">
+                    <div class="card-header">
+                      <h2>{{ request.session.plan }} Plan </h2>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"><span class="mr-2 text-muted">Amount:</span> ${{ request.session.amount }}</h5>
+                      <div id="paypal-button-container" class="payment_radio_btn_wrapper float_left">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+<script src="https://www.paypal.com/sdk/js?client-id=AWu341f4CYxzpqNxse-eOA76gr8JiZncTQMpL2TNmy53mz4ZLYuHNCO9iuflajvPZ-hSFcCVsgqLnVxf&currency=USD"></script>
+  <script>
+    var map = "{% url 'dashboard' %}"
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    function completeOrder(data){
+      var url = "{% url 'checkout' %}"
+      fetch (url, {
+        method: 'POST',
+        headers: {
+          'Content-type':'application/json',
+          'X-CSRFToken':csrftoken,
+        },
+        body: JSON.stringify(
+        {
+          'amount': '{{ request.session.amount }}',
+          'plan': '{{ request.session.plan }}',
+          'data': data
+        })
+      })
+    }
+      // Render the PayPal button into #paypal-button-container
+      paypal.Buttons({
+          // Set up the transaction
+          style: {
+              layout:  'vertical',
+              color:   'blue',
+              shape:   'rect',
+              label:   'pay'
+            },
+          createOrder: function(data, actions) {
+              return actions.order.create({
+                  purchase_units: [{
+                      amount: {
+                          value: {{ request.session.amount }}
+                      }
+                  }]
+              });
+          },
+          // Finalize the transaction
+          onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details) {
+                  // Show a success message to the buyer
+                  completeOrder(data)
+                  alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                  window.location.replace(map)
+              });
+          }
+      }).render('#paypal-button-container');
+  </script>
+{% endblock %}

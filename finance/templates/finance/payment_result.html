@@ -1,0 +1,64 @@
+{% extends "altcoininvest/base.html" %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Deposit Result</h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li> Deposit Result</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+{% endblock %}
+{% block content %}
+<div class="payment_transfer_Wrapper float_left">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+  {% if error %}
+     <div class="alert alert-danger" role="alert">
+       An error occured: {{ error }}
+     </div>
+  {% else %}
+     Payment created successfully.
+     Payment amount: {{ object.amount.normalize }} {{ object.get_currency_original_display }}
+     <h4>CoinPayments.net Transaction <strong>{{ object.provider_tx.id }}</strong></h4>
+     <p class="p-1 m-1">
+       Send {{ object.provider_tx.amount.normalize }}
+       {{ object.get_currency_paid_display }}
+       to {{ object.provider_tx.address }}
+     </p>
+     <p class="p-1 m-1">Time left to pay:<br><span class="countdown"
+                                   data-date="{{ object.provider_tx.timeout|date:"SHORT_DATE_FORMAT" }} "
+                                   data-date-fallback="Timeout exceed">{{ object.provider_tx.timeout }}</span></p>
+     <img class="p-1 m-1" src="{{ object.provider_tx.qrcode_url }}"><br>
+     <a class="btn btn-primary p-1" href="{{ object.provider_tx.status_url }}" target="_blank">
+                 <span class="btn__text">
+                   View status
+                 </span>
+     </a>
+  {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

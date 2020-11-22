@@ -1,0 +1,85 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- inner header wrapper start -->
+<div class="page_title_section">
+    <div class="page_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-12 col-sm-8">
+                    <h1>blog category</h1>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12 col-sm-4">
+                    <div class="sub_title_section">
+                        <ul class="sub_title">
+                            <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                            <li>blog</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- inner header wrapper end -->
+<!-- blog category wrapper start-->
+<div class="blog_category_wrapper fixed_portion float_left">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+              {% for blog in blogs %}
+                <div class="blog_category_box_wrapper blog_box_wrapper float_left">
+                    <div class="blog_news_img_wrapper float_left">
+                        <a href="{% url 'blog_single' blog.id %}"><img src="{{ blog.image.url }}" alt="{{ blog.title }}"></a>
+                        <div class="blog_date_wrapper">
+                            <p>{{ blog.date | date:"M d" }}</p>
+                        </div>
+                    </div>
+                    <div class="lest_news_cont_wrapper float_left">
+                        <div class="blog_heaidng_top">
+                            <h3> <a href="{% url 'blog_single' blog.id %}">{{ blog.title }} </a></h3>
+                        </div>
+                        <div class="blog-single_cntnt">
+                            <p>{{ blog.about }}</p>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="sidebar_widget">
+                    <h4>blog category</h4>
+                    <div class="archives_wrapper">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog' %}">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i> Investments
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar_widget">
+                    <div class="wrapper_second_blog wrapper_second_blog_2">
+                        <h4>recent post</h4>
+                      {% for blog in blogs %}
+                        <div class="blog_wrapper1">
+                            <div class="blog_image">
+                                <img src="{{ blog.image.url }}" class="img-responsive" alt="{{ blog.title }}" />
+                            </div>
+                            <div class="sv_blog_text">
+                                <h5><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h5>
+                                <div class="blog_date blog_date_blog"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{ blog.date | date:"M d, Y"  }}</div>
+                            </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--blog category wrapper end-->
+{% endblock %}

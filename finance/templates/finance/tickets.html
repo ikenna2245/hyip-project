@@ -1,0 +1,130 @@
+{% extends 'altcoininvest/base.html' %}
+{% load static %}
+{% block navi %}
+    <!-- inner header wrapper start -->
+    <div class="page_title_section dashboard_title">
+
+        <div class="page_header">
+            <div class="container">
+                <div class="row">
+                  {% if messages %}
+                      {% for message in messages %}
+                        <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7 alert alert-{{ message.tags }} p-1" role="alert">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                    <div class="col-xl-9 col-lg-7 col-md-7 col-12 col-sm-7">
+                        <h1>Tickets</h1>
+                    </div>
+                  {% endif %}
+                    <div class="col-xl-3 col-lg-5 col-md-5 col-12 col-sm-5">
+                        <div class="sub_title_section">
+                            <ul class="sub_title">
+                                <li> <a href="{% url 'home' %}"> Home </a>&nbsp; / &nbsp; </li>
+                                <li> Tickets</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- inner header wrapper end -->
+{% endblock %}
+{% block content %}
+            <!--  profile wrapper start -->
+            <div class="last_transaction_wrapper float_left">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                        <div class="sv_heading_wraper">
+                            <h3> ticket details</h3>
+                        </div>
+                    </div>
+                    <div class="crm_customer_table_main_wrapper float_left">
+                        <div class="crm_ct_search_wrapper">
+                            <div class="about_btn float_left">
+                                <ul>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#myModal">new ticket</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="modal fade question_modal" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="sv_question_pop float_left">
+                                                    <h1>raise a ticket</h1>
+                                                  <form  method="post" action="{% url 'tickets' %}" id="ticket-form">
+                                                  {% csrf_token %}
+                                                    <div class="search_alert_box float_left">
+                                                        <div class="change_field">
+                                                            <input type="text" name="subject" placeholder="subject" required>
+                                                        </div>
+                                                        <div class="change_field">
+                                                            <input type="text" name="phone" placeholder="contact no">
+                                                        </div>
+                                                        <div class="change_field">
+                                                            <textarea class="form-control require" name="message" required="" rows="4" placeholder=" Message" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="question_sec float_left">
+                                                      <div class="tb_es_btn_wrapper conatct_btn2 cont_bnt">
+                                                          <button type="submit" class="submitForm">Submit Ticket </button>
+                                                      </div>
+                                                        <div class="cancel_wrapper">
+                                                            <a href="#" class="" data-dismiss="modal">cancel</a>
+                                                        </div>
+                                                    </div>
+                                                  </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="myTable table datatables cs-table crm_customer_table_inner_Wrapper">
+                                <thead>
+                                    <tr>
+                                        <th class="width_table1">ticket no</th>
+                                        <th class="width_table1">subject</th>
+                                        <th class="width_table1">status</th>
+                                        <th class="width_table1">date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if tickets %}
+                                  {% for ticket in tickets %}
+                                    <tr class="background_white">
+                                        <td>
+                                            <div class="media cs-media">
+                                                <div class="media-body">
+                                                    <h5>#{{ ticket.id }}</h5>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ticket.subject }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve"> {% if ticket.status %} Resolved {% else %} Open {% endif %}</div>
+                                        </td>
+                                        <td>
+                                            <div class="pretty p-svg p-curve">{{ ticket.date }}</div>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  profile wrapper end -->
+{% endblock %}
